@@ -39,6 +39,9 @@ Object.assign(ar, { teamMembers: 'أعضاء الفريق' });
 Object.assign(en, { actionLabel: 'Actions', openNavigation: 'Open navigation', closeNavigation: 'Close navigation' });
 Object.assign(fr, { actionLabel: 'Actions', openNavigation: 'Ouvrir la navigation', closeNavigation: 'Fermer la navigation' });
 Object.assign(ar, { actionLabel: 'الإجراءات', openNavigation: 'فتح التنقل', closeNavigation: 'إغلاق التنقل' });
+Object.assign(en, { notFoundTitle: 'Page not found', notFoundDescription: 'This page may have moved or the address may be incorrect.', backToDashboard: 'Back to overview' });
+Object.assign(fr, { notFoundTitle: 'Page introuvable', notFoundDescription: 'Cette page a peut-être été déplacée ou l’adresse est incorrecte.', backToDashboard: 'Retour à la vue d’ensemble' });
+Object.assign(ar, { notFoundTitle: 'الصفحة غير موجودة', notFoundDescription: 'ربما تم نقل الصفحة أو أن العنوان غير صحيح.', backToDashboard: 'العودة إلى النظرة العامة' });
 
 export const translations = { en, fr, ar };
 export const localeNames = { en: 'English', fr: 'Français', ar: 'العربية' };

@@ -58,3 +58,37 @@ test('reports an incident and assigns a unique incident reference', () => {
   expect(savedIncidents[0].id).toBe('INC-2026-085');
   expect(savedIncidents[0].title).toBe('Unexpected admin login');
 });
+
+test('renders Kanban on its canonical route and keeps the legacy board URL working', () => {
+  const { unmount } = renderApp('/kanban');
+  expect(screen.getByRole('heading', { name: 'Kanban board' })).toBeInTheDocument();
+  expect(screen.getByRole('heading', { name: 'Under Review' })).toBeInTheDocument();
+  unmount();
+  renderApp('/board');
+  expect(screen.getByRole('heading', { name: 'Kanban board' })).toBeInTheDocument();
+});
+
+test('shows a localized not found page with a dashboard return link', () => {
+  renderApp('/does-not-exist');
+  expect(screen.getByRole('heading', { name: 'Page not found' })).toBeInTheDocument();
+  expect(screen.getByRole('link', { name: 'Back to overview' })).toHaveAttribute('href', '/');
+});
+
+test('persists theme changes across routed pages', () => {
+  renderApp();
+  fireEvent.click(screen.getByRole('button', { name: 'Light' }));
+  expect(document.querySelector('.app-shell')).toHaveAttribute('data-theme', 'light');
+  expect(window.localStorage.getItem('securenexus.theme')).toBe('"light"');
+  fireEvent.click(screen.getByRole('link', { name: 'Incidents 4' }));
+  expect(document.querySelector('.app-shell')).toHaveAttribute('data-theme', 'light');
+});
+
+test('recovers corrupted local task data using demo defaults', () => {
+  const warn = jest.spyOn(console, 'warn').mockImplementation(() => {});
+  window.localStorage.setItem('securenexus.tasks', '{invalid');
+  renderApp();
+  expect(screen.getByLabelText('Total tasks: 10')).toBeInTheDocument();
+  expect(JSON.parse(window.localStorage.getItem('securenexus.tasks'))).toHaveLength(10);
+  expect(warn).toHaveBeenCalled();
+  warn.mockRestore();
+});

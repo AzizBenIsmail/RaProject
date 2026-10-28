@@ -1,22 +1,11 @@
 import { useEffect, useState } from 'react';
+import { readLocalValue, writeLocalValue } from '../services/localStorage';
 
 export function usePersistentState(key, fallback) {
-  const [value, setValue] = useState(() => {
-    try {
-      const saved = window.localStorage.getItem(key);
-      return saved === null ? fallback : JSON.parse(saved);
-    } catch (error) {
-      console.warn(`Could not read local data for "${key}". Using demo defaults.`, error);
-      return fallback;
-    }
-  });
+  const [value, setValue] = useState(() => readLocalValue(key, fallback));
 
   useEffect(() => {
-    try {
-      window.localStorage.setItem(key, JSON.stringify(value));
-    } catch (error) {
-      console.error(`Could not save local data for "${key}".`, error);
-    }
+    writeLocalValue(key, value);
   }, [key, value]);
 
   return [value, setValue];

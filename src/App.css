@@ -342,6 +342,10 @@ kbd { padding: 2px 4px; color: var(--subtle); background: var(--panel-raised); b
 .privacy-card h3 { margin: 13px 0 6px; color: var(--text); font-size: 11px; }.privacy-card p { margin: 0; color: var(--muted); font-size: 9px; line-height: 1.65; }
 .privacy-foot { display: flex; align-items: flex-start; gap: 6px; margin-top: 14px; padding-top: 11px; color: var(--green); border-top: 1px solid var(--line); font-size: 8px; line-height: 1.5; }.privacy-foot svg { flex: 0 0 auto; }
 .settings-help { display: flex; align-items: center; gap: 7px; margin-top: 10px; padding: 10px; color: var(--muted); background: var(--panel); border: 1px solid var(--line); border-radius: 7px; font-size: 9px; }
+.not-found-page { display: grid; min-height: 55vh; align-content: center; justify-items: center; padding: 24px; text-align: center; }
+.not-found-icon { display: grid; width: 52px; height: 52px; place-items: center; margin-bottom: 18px; color: var(--orange); background: #eaa65b18; border-radius: 14px; }
+.not-found-page h1 { margin: 8px 0; color: var(--text); font-size: 28px; letter-spacing: -.7px; }
+.not-found-page p { max-width: 420px; margin: 0 0 19px; color: var(--muted); font-size: 11px; line-height: 1.6; }
 
 /* Dialogs, notifications */
 .modal-backdrop { position: fixed; z-index: 40; inset: 0; display: grid; overflow-y: auto; place-items: center; padding: 18px; background: #020711b8; backdrop-filter: blur(4px); }

@@ -1,0 +1,11 @@
+import { Filter, Search, X } from 'lucide-react';
+import { categories, priorities, taskStatuses } from '../../data/seedData';
+
+export function TaskToolbar({ t, search, setSearch, filters, setFilters, showCategory = true, sort, setSort }) {
+  return <div className="toolbar"><label className="input-search"><Search size={16} /><input value={search} onChange={(event) => setSearch(event.target.value)} placeholder={t.searchTasks} aria-label={t.searchTasks} />{search && <button onClick={() => setSearch('')} aria-label={t.close}><X size={14} /></button>}</label><span className="toolbar-filter-icon"><Filter size={15} /></span><select aria-label={t.filterStatus} value={filters.status} onChange={(event) => setFilters({ ...filters, status: event.target.value })}><option value="">{t.filterStatus}</option>{taskStatuses.map((status) => <option key={status} value={status}>{t[status]}</option>)}</select><select aria-label={t.filterPriority} value={filters.priority} onChange={(event) => setFilters({ ...filters, priority: event.target.value })}><option value="">{t.filterPriority}</option>{priorities.map((priority) => <option key={priority} value={priority}>{t[priority]}</option>)}</select>{showCategory && <select aria-label={t.filterCategory} value={filters.category} onChange={(event) => setFilters({ ...filters, category: event.target.value })}><option value="">{t.filterCategory}</option>{categories.map((category) => <option key={category} value={category}>{t[category]}</option>)}</select>}{sort && setSort && <select aria-label={t.sortBy} value={sort} onChange={(event) => setSort(event.target.value)}><option value="deadline">{t.deadline}</option><option value="newest">{t.newest}</option><option value="priority">{t.prioritySort}</option></select>}</div>;
+}
+
+export function filterTasks(tasks, search, filters) {
+  const query = search.trim().toLowerCase();
+  return tasks.filter((task) => (!query || `${task.title} ${task.description} ${task.assignee} ${task.id} ${task.category} ${(task.tags || []).join(' ')}`.toLowerCase().includes(query)) && (!filters.status || task.status === filters.status) && (!filters.priority || task.priority === filters.priority) && (!filters.category || task.category === filters.category));
+}
